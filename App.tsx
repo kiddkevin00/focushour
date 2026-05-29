@@ -5,7 +5,8 @@ import { useKeepAwake } from 'expo-keep-awake';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  Alert,
+  AppState,
+  AppStateStatus,
   Modal,
   Platform,
   Pressable,
@@ -38,13 +39,14 @@ type Config = {
 };
 
 Notifications.setNotificationHandler({
+  // shouldShowAlert dropped — deprecated in SDK 54; shouldShowBanner +
+  // shouldShowList replace it.
   handleNotification: async () => ({
-    shouldShowAlert: true,
     shouldShowBanner: true,
     shouldShowList: true,
     shouldPlaySound: true,
     shouldSetBadge: false,
-  }),
+  }) as any,
 });
 
 export default function App() {
@@ -125,15 +127,19 @@ export default function App() {
     const completedAt = Date.now();
     const sec = totalSec;
     const finishedMode = mode;
-    setSessions((prev) => [
-      {
-        id: `${completedAt}-${Math.random().toString(36).slice(2, 8)}`,
-        mode: finishedMode,
-        durationSec: sec,
-        completedAt,
-      },
-      ...prev,
-    ].slice(0, 200));
+    // Only persist focus sessions — break sessions consumed the 200-slot
+    // budget and never appeared in stats anyway.
+    if (finishedMode === 'focus') {
+      setSessions((prev) => [
+        {
+          id: `${completedAt}-${Math.random().toString(36).slice(2, 8)}`,
+          mode: finishedMode,
+          durationSec: sec,
+          completedAt,
+        },
+        ...prev,
+      ].slice(0, 200));
+    }
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
     const nextMode: Mode = finishedMode === 'focus' ? 'break' : 'focus';
     setMode(nextMode);
@@ -146,7 +152,8 @@ export default function App() {
   const tick = useCallback(() => {
     if (targetRef.current == null) return;
     const left = Math.max(0, Math.round((targetRef.current - Date.now()) / 1000));
-    setRemainingSec(left);
+    // Only setState when the displayed integer second actually changes.
+    setRemainingSec((prev) => (prev === left ? prev : left));
     if (left <= 0) {
       stopTick();
       completeSession();
@@ -154,7 +161,10 @@ export default function App() {
   }, [completeSession, stopTick]);
 
   const start = useCallback(async () => {
-    if (running) return;
+    // Synchronous re-entry guard: if a tick interval is already running, abort.
+    if (tickRef.current || running) return;
+    // Reserve the interval slot synchronously so concurrent taps can't race.
+    tickRef.current = setInterval(tick, 250);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => {});
     const target = Date.now() + remainingSec * 1000;
     targetRef.current = target;
@@ -170,14 +180,16 @@ export default function App() {
           body: mode === 'focus' ? 'Take a short break.' : 'Back to focus.',
           sound: 'default',
         },
-        trigger: { type: 'timeInterval' as any, seconds: Math.max(1, remainingSec), repeats: false },
+        trigger: {
+          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+          seconds: Math.max(1, remainingSec),
+          repeats: false,
+        },
       });
       notifIdRef.current = id;
     } catch (e) {
       // Notifications may not be granted; ignore.
     }
-
-    tickRef.current = setInterval(tick, 250);
   }, [running, remainingSec, mode, cancelScheduledNotif, tick]);
 
   const pause = useCallback(() => {
@@ -211,6 +223,22 @@ export default function App() {
       cancelScheduledNotif();
     };
   }, [stopTick, cancelScheduledNotif]);
+
+  // When the app comes back to foreground, the JS interval may have been
+  // paused while we were backgrounded. Reconcile state against wall clock.
+  useEffect(() => {
+    const onChange = (state: AppStateStatus) => {
+      if (state !== 'active' || !targetRef.current) return;
+      const left = Math.max(0, Math.round((targetRef.current - Date.now()) / 1000));
+      setRemainingSec(left);
+      if (left <= 0) {
+        stopTick();
+        completeSession();
+      }
+    };
+    const sub = AppState.addEventListener('change', onChange);
+    return () => sub.remove();
+  }, [stopTick, completeSession]);
 
   // Today's session stats
   const todayCounts = useMemo(() => {
@@ -301,6 +329,13 @@ export default function App() {
         visible={settingsOpen}
         config={config}
         onSave={(next) => {
+          // Pause first so a running timer doesn't keep firing against
+          // a stale targetRef / scheduled notification.
+          if (running) {
+            stopTick();
+            cancelScheduledNotif();
+            setRunning(false);
+          }
           setConfig(next);
           setRemainingSec((mode === 'focus' ? next.focusMin : next.breakMin) * 60);
           setSettingsOpen(false);
@@ -322,13 +357,55 @@ function Stat({ label, value, sub }: { label: string; value: string; sub: string
 }
 
 /**
- * A pure-CSS-ish progress ring built with overlapping squared-off arcs.
- * Avoids react-native-svg so we stay in Expo Go without extra deps.
+ * A pure-RN progress ring built with squared-off ticks. Tick geometry is
+ * memoized so each render only re-applies backgroundColor based on the
+ * filled threshold.
  */
 function DialRing({ progress, mode }: { progress: number; mode: Mode }) {
   const size = 280;
   const thickness = 8;
   const color = mode === 'focus' ? '#c75050' : '#3a8a8a';
+  const ticks = useMemo(() => {
+    const arr: {
+      i: number;
+      major: boolean;
+      style: {
+        position: 'absolute';
+        width: number;
+        height: number;
+        left: number;
+        top: number;
+        transform: { rotate: string }[];
+      };
+    }[] = [];
+    for (let i = 0; i < 60; i++) {
+      const angle = (i / 60) * 2 * Math.PI - Math.PI / 2;
+      const inner = size / 2 - thickness - 8;
+      const major = i % 5 === 0;
+      const outer = inner + (major ? 14 : 8);
+      const x1 = Math.cos(angle) * inner;
+      const y1 = Math.sin(angle) * inner;
+      const x2 = Math.cos(angle) * outer;
+      const y2 = Math.sin(angle) * outer;
+      const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
+      const tickAngleDeg = (angle * 180) / Math.PI + 90;
+      const mx = (x1 + x2) / 2;
+      const my = (y1 + y2) / 2;
+      arr.push({
+        i,
+        major,
+        style: {
+          position: 'absolute',
+          width: major ? 2 : 1,
+          height: length,
+          left: size / 2 + mx - (major ? 1 : 0.5),
+          top: size / 2 + my - length / 2,
+          transform: [{ rotate: `${tickAngleDeg}deg` }],
+        },
+      });
+    }
+    return arr;
+  }, [size, thickness]);
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
       <View
@@ -341,32 +418,12 @@ function DialRing({ progress, mode }: { progress: number; mode: Mode }) {
           position: 'absolute',
         }}
       />
-      {/* Discrete tick marks around the ring give a typographic dial feel without SVG */}
-      {Array.from({ length: 60 }).map((_, i) => {
-        const angle = (i / 60) * 2 * Math.PI - Math.PI / 2;
-        const inner = size / 2 - thickness - 8;
-        const outer = inner + (i % 5 === 0 ? 14 : 8);
-        const x1 = Math.cos(angle) * inner;
-        const y1 = Math.sin(angle) * inner;
-        const x2 = Math.cos(angle) * outer;
-        const y2 = Math.sin(angle) * outer;
-        const filled = i / 60 < progress;
-        const length = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2);
-        const tickAngleDeg = (angle * 180) / Math.PI + 90;
-        const mx = (x1 + x2) / 2;
-        const my = (y1 + y2) / 2;
+      {ticks.map((t) => {
+        const filled = t.i / 60 < progress;
         return (
           <View
-            key={i}
-            style={{
-              position: 'absolute',
-              width: i % 5 === 0 ? 2 : 1,
-              height: length,
-              backgroundColor: filled ? color : 'rgba(255,255,255,0.18)',
-              left: size / 2 + mx - (i % 5 === 0 ? 1 : 0.5),
-              top: size / 2 + my - length / 2,
-              transform: [{ rotate: `${tickAngleDeg}deg` }],
-            }}
+            key={t.i}
+            style={[t.style, { backgroundColor: filled ? color : 'rgba(255,255,255,0.18)' }]}
           />
         );
       })}
