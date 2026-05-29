@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Focus Hour",
+    "slug": "focushour",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.markutilitylabs.focushour",
+      "buildNumber": "1",
+      "infoPlist": {
+        "UIBackgroundModes": []
+      }
+    },
+    "android": {
+      "package": "com.markutilitylabs.focushour",
+      "versionCode": 1
+    },
+    "plugins": ["expo-notifications"]
+  }
+}
