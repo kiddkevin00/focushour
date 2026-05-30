@@ -1,138 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Focus Hour — Privacy Policy</title>
-  <meta name="description" content="Privacy policy for Focus Hour. Data stays on your device." />
-  <meta name="theme-color" content="#f7f4ec" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Focus Hour — Privacy Policy</title>
+<meta name="description" content="Privacy policy for Focus Hour. Data stays on your device." />
+<meta name="theme-color" content="#faf6f0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400..700;1,400..600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="app.css" />
 </head>
 <body>
 <div class="page">
+  <header class="topnav">
+  <a class="brand" href="./" aria-label="Focus Hour home">
+    <span class="mark">FH</span>
+    Focus Hour
+    <span class="version">v1.0.0</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary"><a href="#features">Features</a><a href="#howtoplay">How to play</a><a href="support.html">Support</a><a href="privacy.html" aria-current="page">Privacy</a><a href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">GitHub</a></nav>
+</header>
 
-  <header class="masthead">
-    <a class="wordmark" href="./" aria-label="Focus Hour home">
-      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-  <rect x="3.2" y="3.2" width="13" height="15.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-  <rect x="7.8" y="7.8" width="13" height="15.5" rx="1.6" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/>
-</svg>
-      Focus <em>Hour</em>
-    </a>
-    <nav class="topnav" aria-label="Primary">
-      <a href="./">Support</a><a href="privacy.html" aria-current="page">Privacy</a><a href="https://github.com/kiddkevin00/focushour">GitHub</a>
-    </nav>
-  </header>
-
-  <section class="mast" aria-labelledby="mast-title">
-    <p class="eyebrow">Privacy<span class="dot"></span>Plain statement</p>
-    <h1 class="display" id="mast-title">
-      Privacy<br>
-      <em>Policy<span class="punct">.</span></em>
-    </h1>
-    <div class="mast-rule" aria-hidden="true"></div>
-    <p class="lede">Focus Hour is designed to be <em>private by default</em>. All data stays on your device. Nothing is transmitted, stored remotely, or shared with third parties.</p>
-    <p class="meta">Last updated<span class="sep">·</span>28 May 2026</p>
+  <section class="hero" style="padding-bottom:32px">
+    <p class="eyebrow">Privacy</p>
+    <h1 style="margin-bottom:14px">Plain statement.</h1>
+    <p class="lede">Focus Hour is designed to be private by default. All data stays on your device. Nothing is transmitted, stored remotely, or shared with third parties.</p>
+    <p class="trust-row" style="margin-top:18px"><span>Last updated · 29 May 2026</span></p>
   </section>
 
-  <main>
+  <div class="doc-body">
+    <section>
+      <p class="eyebrow">Scope</p>
+      <h2>What data the app handles</h2>
+      <p>The app only touches data you create or capture inside it.</p>
+      <ul><li><strong>Session log</strong> (mode, duration, completion timestamp).</li><li><strong>Settings</strong> (focus length, break length).</li></ul>
+    </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">01</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Scope</p>
-        <h2>What data the app handles</h2>
-        <p>The app only touches data that you create or capture inside it.</p>
-        <ul>
-          <li><strong>Session log</strong> (mode, duration, completion timestamp).</li>
-          <li><strong>Settings</strong> (focus length, break length).</li>
-        </ul>
-      </section>
-    </article>
+    <section>
+      <p class="eyebrow">Storage</p>
+      <h2>How that data is stored</h2>
+      <p>Everything lives in the app's sandboxed local storage. Only the most recent 200 sessions are retained.</p>
+      <ul>
+        <li>Deleting items from inside the app removes them permanently from your device.</li>
+        <li>Uninstalling the app removes all stored data.</li>
+      </ul>
+    </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">02</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Storage</p>
-        <h2>How that data is stored</h2>
-        <p>Everything lives in the app's sandboxed local storage on your device, using React Native's <span class="kbd">AsyncStorage</span>. Only the most recent 200 sessions are retained.</p>
-        <ul>
-          <li>Deleting items from inside the app removes them permanently from your device.</li>
-          <li>Uninstalling the app removes all stored data.</li>
-        </ul>
-      </section>
-    </article>
+    <section>
+      <p class="eyebrow">Negative space</p>
+      <h2>What is NOT collected or transmitted</h2>
+      <p>It's worth being explicit about the absences, since those are the parts privacy policies usually elide.</p>
+      <ul>
+        <li>No analytics or telemetry of any kind.</li>
+        <li>No advertising identifiers.</li>
+        <li>No third-party SDKs that collect data.</li>
+        <li>No account, no login, no user profile.</li>
+        <li>No network requests for your data — nothing leaves your device.</li>
+      </ul>
+    </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">03</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Negative space</p>
-        <h2>What is NOT collected or transmitted</h2>
-        <p>It's worth being explicit about the absences, since those are the parts privacy policies usually elide.</p>
-        <ul>
-          <li>No analytics or telemetry of any kind.</li>
-          <li>No advertising identifiers.</li>
-          <li>No third-party SDKs that collect data.</li>
-          <li>No account, no login, no user profile.</li>
-          <li>No network requests for your data — nothing leaves your device.</li>
-        </ul>
-      </section>
-    </article>
+    <section><p class="eyebrow">Notifications</p><h2>Local notifications, not push</h2><p>The end-of-session alert is a <strong>local notification</strong> scheduled by the OS — there is no server, no push token, no APNs round-trip. Nothing about your sessions leaves your phone.</p></section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">04</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Notifications</p>
-        <h2>Local notifications, not push</h2>
-        <p>The end-of-session alert is a <strong>local notification</strong> scheduled by the OS — there is no server, no push token, no APNs round-trip. Nothing about your sessions leaves your phone.</p>
-      </section>
-    </article>
+    <section>
+      <p class="eyebrow">Children</p>
+      <h2>Children's privacy</h2>
+      <p>Focus Hour is a general-purpose utility and is not directed at children under 13. It does not knowingly collect data that could identify a user of any age — because it does not collect or transmit personal data at all.</p>
+    </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">05</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Children</p>
-        <h2>Children's privacy</h2>
-        <p>Focus Hour is a general-purpose utility and is not directed at children under 13. It does not knowingly collect data that could identify a user of any age — because it does not collect or transmit personal data at all.</p>
-      </section>
-    </article>
-
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">06</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Versioning</p>
-        <h2>Changes to this policy</h2>
-        <p>If material changes are made, the <em>last updated</em> date at the top of this page will change. Continued use of the app after an update constitutes acceptance of the updated policy.</p>
-      </section>
-    </article>
-
-  </main>
-
-  <aside class="contact-card">
-    <p class="eyebrow">Card<span class="dot"></span>No. 02</p>
-    <h3>Questions about <em>privacy</em>?</h3>
-    <p>Open an issue on GitHub. Public, traceable, and the same channel used for everything else.</p>
-    <p class="link-row"><a href="https://github.com/kiddkevin00/focushour/issues">github.com/kiddkevin00/focushour/issues</a></p>
-  </aside>
+    <section>
+      <p class="eyebrow">Versioning</p>
+      <h2>Changes to this policy</h2>
+      <p>If material changes are made, the <em>last updated</em> date at the top of this page will change. Continued use of the app after an update constitutes acceptance of the updated policy.</p>
+    </section>
+  </div>
 
   <footer class="colophon">
-    <div class="colophon-left">
-      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-  <rect x="3.2" y="3.2" width="13" height="15.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-  <rect x="7.8" y="7.8" width="13" height="15.5" rx="1.6" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/>
-</svg>
-      Focus <em>Hour</em> · Mark Utility Labs
-    </div>
-    <nav class="colophon-meta" aria-label="Footer">
-      <a href="privacy.html">Privacy</a>
-      <a href="https://github.com/kiddkevin00/focushour">Source</a>
-      <a href="https://github.com/kiddkevin00/focushour/issues">Issues</a>
-    </nav>
-  </footer>
-
+  <span class="credit">© Mark Utility Labs · Made with care.</span>
+  <nav class="colophon-links" aria-label="Footer">
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">GitHub</a>
+  </nav>
+</footer>
 </div>
 </body>
 </html>

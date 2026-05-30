@@ -1,105 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Focus Hour — Support</title>
-  <meta name="description" content="Support and FAQ for Focus Hour." />
-  <meta name="theme-color" content="#f7f4ec" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Focus Hour — Twenty-five minutes, on the dot.</title>
+<meta name="description" content="A quiet Pomodoro timer for iPhone. Tap start, work, take five — no tracking, no streak guilt, no upsells." />
+<meta name="theme-color" content="#faf6f0" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400..700;1,400..600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="app.css" />
 </head>
 <body>
 <div class="page">
+  <header class="topnav">
+  <a class="brand" href="./" aria-label="Focus Hour home">
+    <span class="mark">FH</span>
+    Focus Hour
+    <span class="version">v1.0.0</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary"><a href="#features" aria-current="page">Features</a><a href="#howtoplay">How to play</a><a href="support.html">Support</a><a href="privacy.html">Privacy</a><a href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">GitHub</a></nav>
+</header>
 
-  <header class="masthead">
-    <a class="wordmark" href="./" aria-label="Focus Hour home">
-      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-  <rect x="3.2" y="3.2" width="13" height="15.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-  <rect x="7.8" y="7.8" width="13" height="15.5" rx="1.6" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/>
-</svg>
-      Focus <em>Hour</em>
-    </a>
-    <nav class="topnav" aria-label="Primary">
-      <a href="./" aria-current="page">Support</a><a href="privacy.html">Privacy</a><a href="https://github.com/kiddkevin00/focushour">GitHub</a>
-    </nav>
-  </header>
-
-  <section class="mast" aria-labelledby="mast-title">
-    <p class="eyebrow">Support<span class="dot"></span>The manual</p>
-    <h1 class="display" id="mast-title">
-      Focus<br>
-      <em>Hour<span class="punct">.</span></em>
-    </h1>
-    <div class="mast-rule" aria-hidden="true"></div>
-    <p class="lede">A quiet Pomodoro timer for iPhone. Twenty-five minutes of work, five of rest — <em>no tracking, no streak guilt, no upsells.</em></p>
-    <p class="meta">v1.0.0<span class="sep">·</span>iPhone · iOS 16+</p>
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero-eyebrow"><span class="beta-badge">Now in beta · iOS via Expo Go</span></p>
+    <h1 id="hero-title">Twenty-five minutes, on the dot.</h1>
+    <p class="lede">A quiet Pomodoro timer for iPhone. Tap start, work, take five — no tracking, no streak guilt, no upsells.</p>
+    <div class="cta-row">
+      <a class="cta-primary" href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">★ Star on GitHub</a>
+      <a class="cta-secondary" href="#howtoplay">How it works →</a>
+    </div>
+    <p class="trust-row"><span>Local notifications</span><span>No tracking</span><span>No upsells</span><span>Open source</span></p>
   </section>
 
-  <main>
+  <section id="features" aria-labelledby="features-h">
+    <p class="eyebrow">Features</p>
+    <h2 id="features-h">What's in the build</h2>
+    <p class="subhead">The whole feature set, plainly listed — no upsells gating the basics.</p>
+    <div class="feature-grid">
+      <article class="feature-card"><span class="feature-icon">◔</span><h3>Tick-mark dial</h3><p>A pure-RN circular dial — no game-engine dependency. Each tick fills as the seconds pass.</p></article>
+      <article class="feature-card"><span class="feature-icon">✦</span><h3>Local alerts</h3><p>An end-of-session notification is scheduled at start, so it fires even if you background the app or the screen locks.</p></article>
+      <article class="feature-card"><span class="feature-icon">↻</span><h3>Auto-cycle</h3><p>Focus → break → focus, automatically. Custom focus and break lengths in Settings.</p></article>
+      <article class="feature-card"><span class="feature-icon">☼</span><h3>Today at a glance</h3><p>A small stat strip below the dial: sessions completed today, minutes focused, sessions all-time.</p></article>
+      <article class="feature-card"><span class="feature-icon">◯</span><h3>Keeps the screen awake</h3><p>While a session is running, the display stays on so the dial is always visible.</p></article>
+      <article class="feature-card"><span class="feature-icon">⊘</span><h3>No history sold</h3><p>Only the last 200 focus sessions are kept on-device to compute today. They are never uploaded.</p></article>
+    </div>
+  </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">01</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Overview</p>
-        <h2>How it works</h2>
-        <p>Tap <strong>Start</strong>. The dial winds down twenty-five minutes by default — when it completes you get a haptic tap, a local notification, and the next mode (a five-minute break) cues up automatically.</p><ul><li>Pause, reset, or skip at any time.</li><li>Today's count and minutes focused live below the dial.</li><li>The screen stays awake while a session is running.</li><li>A local notification fires when the session ends, even if you backgrounded the app.</li></ul>
-      </section>
-    </article>
+  <section id="howtoplay" aria-labelledby="howto-h">
+    <p class="eyebrow">How to play</p>
+    <h2 id="howto-h">From cold-start to good-at-it</h2>
+    <p class="subhead">A few short steps. The app gets out of your way after that.</p>
+    <div class="steps-grid">
+      <article class="step-card"><span class="step-num">01</span><h3>Tap Start</h3><p>The dial begins winding down twenty-five minutes by default. A haptic confirms.</p></article>
+      <article class="step-card"><span class="step-num">02</span><h3>Work</h3><p>Put the phone down. When the dial completes, the notification fires and the mode flips to a five-minute break.</p></article>
+      <article class="step-card"><span class="step-num">03</span><h3>Take five</h3><p>The break dial counts down. When it ends, the mode flips back to focus and you can start the next round.</p></article>
+      <article class="step-card"><span class="step-num">04</span><h3>Adjust if you like</h3><p>Open Settings to change focus and break lengths (1–120 / 1–60 minutes).</p></article>
+    </div>
+  </section>
 
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">02</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Customize</p>
-        <h2>Can I change the lengths?</h2>
-        <p>Yes — tap <span class="kbd">Settings</span> in the top right. Focus length and break length are independent, 1 to 120 / 1 to 60 minutes respectively. The classic Pomodoro ratio is 25 / 5; a longer 50 / 10 is popular for deep work.</p>
-      </section>
-    </article>
-
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">03</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Notifications</p>
-        <h2>Why does the app ask for notification permission?</h2>
-        <p>So the end-of-session alert fires even when the app is backgrounded or your phone is locked. If you decline, the dial still counts down and you'll see the completion in-app — you just won't get a banner.</p>
-      </section>
-    </article>
-
-    <article class="doc">
-      <aside class="doc-num" aria-hidden="true">04</aside>
-      <section class="doc-body">
-        <p class="doc-eyebrow">Data</p>
-        <h2>Is there a history?</h2>
-        <p>Yes — the last 200 completed sessions are kept on-device to compute today's stats. They are never uploaded. You can wipe them by deleting and reinstalling the app.</p>
-      </section>
-    </article>
-
-  </main>
-
-  <aside class="contact-card">
-    <p class="eyebrow">Card<span class="dot"></span>No. 01</p>
-    <h3>Need help, or want to <em>report a bug</em>?</h3>
-    <p>Open an issue on GitHub. There's no support email — issues are the canonical channel and they're public, which keeps everything honest.</p>
-    <p class="link-row"><a href="https://github.com/kiddkevin00/focushour/issues">github.com/kiddkevin00/focushour/issues</a></p>
-  </aside>
+  <section id="screenshots" aria-labelledby="shots-h">
+    <p class="eyebrow">Screenshots</p>
+    <h2 id="shots-h">What it looks like on a phone</h2>
+    <p class="subhead">Captured from the running app at iPhone 14 viewport.</p>
+    <div class="shots-empty">Screenshots from the running app are coming soon.</div>
+  </section>
 
   <footer class="colophon">
-    <div class="colophon-left">
-      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true">
-  <rect x="3.2" y="3.2" width="13" height="15.5" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-  <rect x="7.8" y="7.8" width="13" height="15.5" rx="1.6" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/>
-</svg>
-      Focus <em>Hour</em> · Mark Utility Labs
-    </div>
-    <nav class="colophon-meta" aria-label="Footer">
-      <a href="privacy.html">Privacy</a>
-      <a href="https://github.com/kiddkevin00/focushour">Source</a>
-      <a href="https://github.com/kiddkevin00/focushour/issues">Issues</a>
-    </nav>
-  </footer>
-
+  <span class="credit">© Mark Utility Labs · Made with care.</span>
+  <nav class="colophon-links" aria-label="Footer">
+    <a href="support.html">Support</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">GitHub</a>
+  </nav>
+</footer>
 </div>
 </body>
 </html>
