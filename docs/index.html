@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Focus Hour — Twenty-five minutes, on the dot.</title>
-<meta name="description" content="A quiet Pomodoro timer for iPhone. Tap start, work, take five — no tracking, no streak guilt, no upsells." />
+<title>Focus Hour — Twenty-five quiet minutes.</title>
+<meta name="description" content="An ad-free Pomodoro timer for iPhone. A dial that counts down, a local notification when the session ends, today's count next to the dial. That's it." />
 <meta name="theme-color" content="#faf6f0" />
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400..700;1,400..600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="app.css" />
 </head>
 <body>
@@ -22,13 +22,13 @@
 
   <section class="hero" aria-labelledby="hero-title">
     <p class="hero-eyebrow"><span class="beta-badge">Now in beta · iOS via Expo Go</span></p>
-    <h1 id="hero-title">Twenty-five minutes, on the dot.</h1>
-    <p class="lede">A quiet Pomodoro timer for iPhone. Tap start, work, take five — no tracking, no streak guilt, no upsells.</p>
+    <h1 id="hero-title">Twenty-five quiet minutes.</h1>
+    <p class="lede">An ad-free Pomodoro timer for iPhone. A dial that counts down, a local notification when the session ends, today's count next to the dial. That's it.</p>
     <div class="cta-row">
       <a class="cta-primary" href="https://github.com/kiddkevin00/focushour" rel="noopener" target="_blank">★ Star on GitHub</a>
       <a class="cta-secondary" href="#howtoplay">How it works →</a>
     </div>
-    <p class="trust-row"><span>Local notifications</span><span>No tracking</span><span>No upsells</span><span>Open source</span></p>
+    <p class="trust-row"><span>Offline-first</span><span>No ads</span><span>No accounts</span><span>Open source</span></p>
   </section>
 
   <section id="features" aria-labelledby="features-h">
@@ -36,12 +36,12 @@
     <h2 id="features-h">What's in the build</h2>
     <p class="subhead">The whole feature set, plainly listed — no upsells gating the basics.</p>
     <div class="feature-grid">
-      <article class="feature-card"><span class="feature-icon">◔</span><h3>Tick-mark dial</h3><p>A pure-RN circular dial — no game-engine dependency. Each tick fills as the seconds pass.</p></article>
-      <article class="feature-card"><span class="feature-icon">✦</span><h3>Local alerts</h3><p>An end-of-session notification is scheduled at start, so it fires even if you background the app or the screen locks.</p></article>
-      <article class="feature-card"><span class="feature-icon">↻</span><h3>Auto-cycle</h3><p>Focus → break → focus, automatically. Custom focus and break lengths in Settings.</p></article>
-      <article class="feature-card"><span class="feature-icon">☼</span><h3>Today at a glance</h3><p>A small stat strip below the dial: sessions completed today, minutes focused, sessions all-time.</p></article>
-      <article class="feature-card"><span class="feature-icon">◯</span><h3>Keeps the screen awake</h3><p>While a session is running, the display stays on so the dial is always visible.</p></article>
-      <article class="feature-card"><span class="feature-icon">⊘</span><h3>No history sold</h3><p>Only the last 200 focus sessions are kept on-device to compute today. They are never uploaded.</p></article>
+      <article class="feature-card"><span class="feature-icon">◴</span><h3>Classic 25 / 5 dial</h3><p>A circular tick-dial that ramps down through 60 marks. Configurable focus and break lengths (1–120 / 1–60 minutes).</p></article>
+      <article class="feature-card"><span class="feature-icon">⏻</span><h3>Backgrounded? Still accurate.</h3><p>Timer is wall-clock under the hood. Lock your phone mid-session and the countdown reconciles on resume — and the end-of-session notification still fires.</p></article>
+      <article class="feature-card"><span class="feature-icon">✶</span><h3>Today's count, all-time count</h3><p>Just the numbers you need to feel the streak: sessions today, minutes today, sessions ever. No charts, no calendar grid, no week summary email.</p></article>
+      <article class="feature-card"><span class="feature-icon">❖</span><h3>Local notifications only</h3><p>End-of-session alert is scheduled by the OS, not pushed from a server. No APNs round-trip, no push token, no account.</p></article>
+      <article class="feature-card"><span class="feature-icon">↻</span><h3>Auto-cycle focus / break</h3><p>Session ends → next mode cues up automatically. Pause, reset, or Skip to the other mode any time.</p></article>
+      <article class="feature-card"><span class="feature-icon">✦</span><h3>No tracking, period</h3><p>No analytics SDK, no third parties. The Privacy Nutrition Label is honestly 'Data Not Collected'.</p></article>
     </div>
   </section>
 
@@ -50,10 +50,11 @@
     <h2 id="howto-h">From cold-start to good-at-it</h2>
     <p class="subhead">A few short steps. The app gets out of your way after that.</p>
     <div class="steps-grid">
-      <article class="step-card"><span class="step-num">01</span><h3>Tap Start</h3><p>The dial begins winding down twenty-five minutes by default. A haptic confirms.</p></article>
-      <article class="step-card"><span class="step-num">02</span><h3>Work</h3><p>Put the phone down. When the dial completes, the notification fires and the mode flips to a five-minute break.</p></article>
-      <article class="step-card"><span class="step-num">03</span><h3>Take five</h3><p>The break dial counts down. When it ends, the mode flips back to focus and you can start the next round.</p></article>
-      <article class="step-card"><span class="step-num">04</span><h3>Adjust if you like</h3><p>Open Settings to change focus and break lengths (1–120 / 1–60 minutes).</p></article>
+      <article class="step-card"><span class="step-num">01</span><h3>Tap Start</h3><p>The dial begins winding down twenty-five minutes by default. Lock your phone if you want — the end notification still fires.</p></article>
+      <article class="step-card"><span class="step-num">02</span><h3>Pause or Skip</h3><p>Pause stops the dial in place. Skip jumps to the other mode (focus → break or break → focus) at your discretion.</p></article>
+      <article class="step-card"><span class="step-num">03</span><h3>End triggers next mode</h3><p>When the session completes you get a haptic, a banner notification, and the next mode is queued. Tap Start to begin it.</p></article>
+      <article class="step-card"><span class="step-num">04</span><h3>Adjust the lengths</h3><p>Tap Settings (top right) to change focus length and break length independently. New values apply to the next session.</p></article>
+      <article class="step-card"><span class="step-num">05</span><h3>Watch the count</h3><p>Sessions today, minutes today, and all-time sessions live below the dial. They update as you finish focus runs.</p></article>
     </div>
   </section>
 
@@ -61,7 +62,7 @@
     <p class="eyebrow">Screenshots</p>
     <h2 id="shots-h">What it looks like on a phone</h2>
     <p class="subhead">Captured from the running app at iPhone 14 viewport.</p>
-    <div class="shots-empty">Screenshots from the running app are coming soon.</div>
+    <div class="shots-grid"><figure class="shot-card"><img src="screenshots/01-menu.png" alt="Idle dial. 25 minutes queued, Start ready, today's count below. screenshot" loading="lazy" /><figcaption class="shot-caption"><span class="n">01</span><span>Idle dial. 25 minutes queued, Start ready, today's count below.</span></figcaption></figure><figure class="shot-card"><img src="screenshots/02-running.png" alt="Session running. First tick fills in accent, Pause replaces Start, dial counts down. screenshot" loading="lazy" /><figcaption class="shot-caption"><span class="n">02</span><span>Session running. First tick fills in accent, Pause replaces Start, dial counts down.</span></figcaption></figure></div>
   </section>
 
   <footer class="colophon">

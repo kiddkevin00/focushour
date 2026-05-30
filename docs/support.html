@@ -6,7 +6,7 @@
 <title>Focus Hour — Support</title>
 <meta name="description" content="Support and FAQ for Focus Hour." />
 <meta name="theme-color" content="#faf6f0" />
-<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400..700;1,400..600&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="app.css" />
 </head>
 <body>
@@ -27,7 +27,7 @@
   </section>
 
   <section style="padding-top:0">
-    <div class="faq"><details><summary>Why does the app ask for notification permission?</summary><p>So the end-of-session alert fires even when the app is backgrounded or your phone is locked. If you decline, the dial still counts down and you'll see the completion in-app — you just won't get a banner.</p></details><details><summary>Is there a leaderboard or streak counter?</summary><p>No. Today's stats are visible in-app and that's it. No streak shaming, no friends-list comparison, no analytics, no sharing prompts.</p></details><details><summary>Can I change the lengths?</summary><p>Yes — tap Settings. Focus and break are independent. The classic Pomodoro ratio is 25/5; 50/10 is popular for deeper work.</p></details><details><summary>Does the timer keep running in the background?</summary><p>Yes, in the sense that the end-time is locked at start. The dial may visually freeze while backgrounded, but the notification still fires on time and the state reconciles when you reopen the app.</p></details></div>
+    <div class="faq"><details><summary>Does the timer keep running when I lock my phone?</summary><p>Yes. The dial is wall-clock under the hood: the end time is computed when you tap Start, and the dial reconciles itself against the system clock on every tick and whenever the app comes back to the foreground.</p></details><details><summary>Will the notification still fire if the app is backgrounded?</summary><p>Yes — it's a local notification scheduled by iOS at session start. It will fire even if Focus Hour was killed by the OS while you were away.</p></details><details><summary>Can I change the focus and break lengths?</summary><p>Yes — tap Settings in the top right. Focus is 1–120 minutes, break is 1–60. The classic ratio is 25/5; 50/10 is popular for deep work.</p></details><details><summary>What does Skip do?</summary><p>Ends the current session immediately and switches to the other mode (focus → break or vice versa). Does NOT record a completed session.</p></details><details><summary>Does the app collect anything?</summary><p>No. Only your session log (mode, duration, completion timestamp) and settings live on this device, in AsyncStorage. There are no analytics, no third-party SDKs, no network calls of any kind.</p></details></div>
   </section>
 
   <aside class="contact-card">
